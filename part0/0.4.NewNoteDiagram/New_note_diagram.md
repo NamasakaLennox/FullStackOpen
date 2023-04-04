@@ -6,6 +6,7 @@ sequenceDiagram
     Note left of browser: user adds new note<br>and clicks submit
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
+    Note right of server: Adds new note to the notes page
     Note right of server: Sends a redirect request <br> (Status Code 302)
     server-->>browser: Redirect Request https://studies.cs.helsinki.fi/exampleapp/notes
     deactivate server
