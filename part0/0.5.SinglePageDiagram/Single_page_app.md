@@ -3,16 +3,10 @@ sequenceDiagram
     participant browser
     participant server
 
-    Note left of browser: user adds new note<br>and clicks submit
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    Note left of browser: user loads page
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate server
-    Note right of server: Sends a redirect request <br> (Status Code 302)
-    server-->>browser: Redirect Request https://studies.cs.helsinki.fi/exampleapp/notes
-    deactivate server
-
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
-    activate server
-    server-->>browser: HTML document
+    server-->>browser: the HTML document
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
@@ -20,7 +14,7 @@ sequenceDiagram
     server-->>browser: the css file
     deactivate server
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
     activate server
     server-->>browser: the javascript file
     deactivate server
@@ -29,7 +23,7 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: [{content: "anupam", date: "2023-04-04T11:27:49.756Z"},…]
+    server-->>browser: [{content: "normal", date: "2023-04-04T10:41:09.567Z"},…]
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/favicon.ico
@@ -38,7 +32,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: browser executes event handler,<br>rendering page to display
-
-
-
 ```
