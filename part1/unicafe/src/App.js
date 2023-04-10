@@ -16,11 +16,11 @@ const StatisticLine = ({ text, value, sign }) => (
     </tr>
   </tbody>
 );
-const Statistics = (props) => {
-  const good = props.stats[0];
-  const neutral = props.stats[1];
-  const bad = props.stats[2];
-  const clicks = props.stats[3];
+const Statistics = ({ stats }) => {
+  const good = stats[0];
+  const neutral = stats[1];
+  const bad = stats[2];
+  const clicks = stats[3];
   if (clicks === 0) {
     return (
       <>
