@@ -2,7 +2,7 @@ import React from "react";
 
 const Filter = ({ newFilter, handleFilter, filterPage }) => (
   <div>
-    Filter shown with:{" "}
+    filter shown with
     <input
       value={newFilter}
       onChange={(event) => {

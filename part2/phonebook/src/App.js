@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 
 import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -62,33 +64,19 @@ const App = () => {
         filterPage={filterPage}
       />
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumChange={handleNumChange}
+      />
       <h2>Numbers</h2>
-      {pageFilter
-        ? persons
-            .filter((person) =>
-              person.name.toLowerCase().includes(newFilter.toLowerCase())
-            )
-            .map((filtered) => (
-              <li key={filtered.name} style={{ listStyle: "none" }}>
-                {filtered.name} {filtered.number}
-              </li>
-            ))
-        : persons.map((person) => (
-            <li key={person.name} style={{ listStyle: "none" }}>
-              {person.name} {person.number}
-            </li>
-          ))}
+      <Persons
+        persons={persons}
+        pageFilter={pageFilter}
+        newFilter={newFilter}
+      />
     </div>
   );
 };
