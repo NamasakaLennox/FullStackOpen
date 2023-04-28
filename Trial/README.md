@@ -1,3 +1,4 @@
 # Test file
 
-This is a random trials file for self learning purpose
+This is a trials file for self learning purpose
+Also includes test cases used as examples in the coursework
