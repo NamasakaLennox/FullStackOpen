@@ -22,7 +22,7 @@
     },
     {
       "content": "This is a POST test",
-      "important": false,
+      "important": true,
       "id": 5
     }
   ]
