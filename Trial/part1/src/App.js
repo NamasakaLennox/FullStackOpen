@@ -1,6 +1,6 @@
 import React from "react";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 // const Display = ({ counter }) => <div>{counter}</div>;
 
 // const Button = ({ handleClick, text }) => (
@@ -98,11 +98,22 @@ import { useState } from "react";
 // };
 import Note from "./components/Note";
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes);
-  const [newNote, setNewNote] = useState("a new note...");
+const App = () => {
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
 
+  const hook = () => {
+    console.log("effect");
+    axios.get("http://localhost:3001/notes").then((response) => {
+      console.log("promise fulfilled");
+      setNotes(response.data);
+    });
+  };
+
+  useEffect(hook, []);
+
+  console.log("render", notes.length, "notes");
   const NotesToShow = showAll ? notes : notes.filter((note) => note.important);
 
   const addNote = (event) => {
