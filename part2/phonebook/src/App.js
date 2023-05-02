@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+import personService from "./services/contacts";
 
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
@@ -15,9 +16,9 @@ const App = () => {
 
   useEffect(() => {
     //console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
+    personService.getAll().then((allPersons) => {
       // console.log("promise fulfilled");
-      setPersons(response.data);
+      setPersons(allPersons);
     });
   }, []);
   console.log(">", persons.length, "rendered");
@@ -39,11 +40,13 @@ const App = () => {
     if (persons.some((el) => el.name === personObj.name)) {
       // console.log("found");
       window.alert(`${newName} is already added to phonebook`);
-    } else if (persons.some((el) => el.number === personObj.number)) {
+      //} else if (persons.some((el) => el.number === personObj.number)) {
       // console.log("found");
-      window.alert(`${newNumber} is already added to phonebook`);
+      //window.alert(`${newNumber} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(personObj));
+      personService.createContact(personObj).then((newContact) => {
+        setPersons(persons.concat(newContact));
+      });
     }
     setNewName("");
     setNewNumber("");
