@@ -63,6 +63,14 @@ const App = () => {
   const handleFilter = (event) => {
     setNewFilter(event.target.value);
   };
+
+  const handleDelete = (id, name) => {
+    console.log("delete button clicked: item id -> " + id + " " + name);
+    personService.deleteContact(id);
+    //personService.getAll().then((allPersons) => {
+    setPersons(persons.filter((person) => person.id !== id));
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -84,6 +92,7 @@ const App = () => {
         persons={persons}
         pageFilter={pageFilter}
         newFilter={newFilter}
+        handleDelete={handleDelete}
       />
     </div>
   );

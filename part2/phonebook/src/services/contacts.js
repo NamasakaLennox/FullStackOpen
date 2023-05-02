@@ -16,10 +16,14 @@ const updateContact = (id, newObject) => {
   const request = axios.put(`${baseUrl}/${id}`, newObject);
   return request.then((response) => response.data);
 };
+const deleteContact = (id) => {
+  axios.delete(`${baseUrl}/${id}`);
+};
 const personService = {
   getAll,
   createContact,
   updateContact,
+  deleteContact,
 };
 
 export default personService;
