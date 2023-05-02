@@ -37,9 +37,21 @@ const App = () => {
       name: newName,
       number: newNumber,
     };
+
     if (persons.some((el) => el.name === personObj.name)) {
+      const elem = persons.find((person) => person.name === personObj.name);
       // console.log("found");
-      window.alert(`${newName} is already added to phonebook`);
+      window.confirm(
+        `${newName} is already added to phonebook, replace old number with new one?`
+      )
+        ? personService.updateContact(elem.id, personObj).then((response) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== elem.id ? person : response
+              )
+            );
+          })
+        : console.log("did not update");
       //} else if (persons.some((el) => el.number === personObj.number)) {
       // console.log("found");
       //window.alert(`${newNumber} is already added to phonebook`);
