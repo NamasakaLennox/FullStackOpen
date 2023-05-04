@@ -1,11 +1,11 @@
 import React from "react";
 
-const Notification = ({ message }) => {
+const ErrorMessage = ({ message }) => {
   if (message === null) {
     return null;
   }
   const messageStyle = {
-    color: "green",
+    color: "red",
     background: "lightgrey",
     fontSize: 20,
     borderStyle: "solid",
@@ -13,7 +13,8 @@ const Notification = ({ message }) => {
     padding: 10,
     marginBottom: 10,
   };
+
   return <div style={messageStyle}>{message}</div>;
 };
 
-export default Notification;
+export default ErrorMessage;

@@ -7,6 +7,7 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import Notification from "./components/Notification";
+import ErrorMessage from "./components/ErrorMessage";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -15,7 +16,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
   const [message, setMessage] = useState(null);
-
+  const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {
     //console.log("effect");
     personService.getAll().then((allPersons) => {
@@ -46,17 +47,27 @@ const App = () => {
       window.confirm(
         `${newName} is already added to phonebook, replace old number with new one?`
       )
-        ? personService.updateContact(elem.id, personObj).then((response) => {
-            setPersons(
-              persons.map((person) =>
-                person.id !== elem.id ? person : response
-              )
-            );
-            setMessage(`Updated ${newName}`);
-            setTimeout(() => {
-              setMessage(null);
-            }, 5000);
-          })
+        ? personService
+            .updateContact(elem.id, personObj)
+            .then((response) => {
+              setPersons(
+                persons.map((person) =>
+                  person.id !== elem.id ? person : response
+                )
+              );
+              setMessage(`Updated ${newName}`);
+              setTimeout(() => {
+                setMessage(null);
+              }, 5000);
+            })
+            .catch((error) => {
+              setErrorMsg(
+                `Information of ${newName} has already been removed from server`
+              );
+              setTimeout(() => {
+                setErrorMsg(null);
+              }, 5000);
+            })
         : console.log("did not update");
       //} else if (persons.some((el) => el.number === personObj.number)) {
       // console.log("found");
@@ -97,6 +108,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
+      <ErrorMessage message={errorMsg} />
       <Filter
         newFilter={newFilter}
         handleFilter={handleFilter}
