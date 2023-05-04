@@ -6,6 +6,7 @@ import personService from "./services/contacts";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -13,6 +14,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     //console.log("effect");
@@ -50,6 +52,10 @@ const App = () => {
                 person.id !== elem.id ? person : response
               )
             );
+            setMessage(`Updated ${newName}`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
           })
         : console.log("did not update");
       //} else if (persons.some((el) => el.number === personObj.number)) {
@@ -58,6 +64,10 @@ const App = () => {
     } else {
       personService.createContact(personObj).then((newContact) => {
         setPersons(persons.concat(newContact));
+        setMessage(`Added ${newName}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
       });
     }
     setNewName("");
@@ -86,6 +96,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter
         newFilter={newFilter}
         handleFilter={handleFilter}
