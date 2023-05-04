@@ -19,7 +19,26 @@ const App = () => {
         });
         console.log(checkVal.length);
         if (checkVal.length === 1) {
-          console.log("start here tomorrow");
+          setCountry(
+            checkVal.map((filtered) => (
+              <>
+                <h1 key={filtered.name.common}>{filtered.name.common}</h1>
+                capital: {filtered.capital[0]} <br />
+                area: {filtered.area} <br />
+                <h3>languages</h3>
+                <ul>
+                  {Object.values(filtered.languages).map((value) => (
+                    <li key={value}>{value}</li>
+                  ))}
+                </ul>
+                <img
+                  src={filtered.flags.png}
+                  alt={filtered.flags.alt}
+                  style={{ width: 150, height: 100 }}
+                />
+              </>
+            ))
+          );
         } else if (checkVal.length <= 10) {
           setCountry(
             checkVal.map((filtered) => (
@@ -47,7 +66,7 @@ const App = () => {
         find countries <input value={search} onChange={handleSearch} />
       </form>
       <Notification message={message} />
-      <ul>{country}</ul>
+      <div>{country}</div>
     </div>
   );
 };
