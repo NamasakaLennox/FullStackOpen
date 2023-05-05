@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 
 import Notification from "./components/Notification";
 import CountryData from "./services/countries";
+import Details from "./components/Details";
 
 const App = () => {
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState([]);
   const [message, setMessage] = useState(null);
+  const [show, setShow] = useState(null);
 
   useEffect(() => {
     CountryData.getAll().then((response) => {
@@ -20,29 +22,17 @@ const App = () => {
         console.log(checkVal.length);
         if (checkVal.length === 1) {
           setCountry(
-            checkVal.map((filtered) => (
-              <>
-                <h1 key={filtered.name.common}>{filtered.name.common}</h1>
-                capital: {filtered.capital[0]} <br />
-                area: {filtered.area} <br />
-                <h3>languages</h3>
-                <ul>
-                  {Object.values(filtered.languages).map((value) => (
-                    <li key={value}>{value}</li>
-                  ))}
-                </ul>
-                <img
-                  src={filtered.flags.png}
-                  alt={filtered.flags.alt}
-                  style={{ width: 150, height: 100 }}
-                />
-              </>
-            ))
+            checkVal.map((filtered) => <Details filtered={filtered} />)
           );
         } else if (checkVal.length <= 10) {
           setCountry(
             checkVal.map((filtered) => (
-              <li key={filtered.name.common}>{filtered.name.common}</li>
+              <>
+                <li key={filtered.name.common}>
+                  {filtered.name.common}{" "}
+                  <button onClick={() => handleClick(filtered)}>show</button>
+                </li>
+              </>
             ))
           );
         } else {
@@ -56,7 +46,12 @@ const App = () => {
     });
   }, [search]);
 
+  const handleClick = (filtered) => {
+    console.log("button clicked " + filtered.name.common);
+    setShow(<Details filtered={filtered} />);
+  };
   const handleSearch = (event) => {
+    setShow(null);
     console.log(event.target.value);
     setSearch(event.target.value);
   };
@@ -67,6 +62,7 @@ const App = () => {
       </form>
       <Notification message={message} />
       <div>{country}</div>
+      <div>{show}</div>
     </div>
   );
 };
