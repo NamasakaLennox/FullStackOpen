@@ -26,13 +26,11 @@ const App = () => {
           );
         } else if (checkVal.length <= 10) {
           setCountry(
-            checkVal.map((filtered) => (
-              <>
-                <li key={filtered.name.common}>
-                  {filtered.name.common}{" "}
-                  <button onClick={() => handleClick(filtered)}>show</button>
-                </li>
-              </>
+            checkVal.map((filtered, id) => (
+              <li key={id}>
+                {filtered.name.common}{" "}
+                <button onClick={() => handleClick(filtered)}>show</button>
+              </li>
             ))
           );
         } else {
