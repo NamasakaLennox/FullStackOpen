@@ -55,6 +55,7 @@ const App = () => {
     console.log(event.target.value);
     setSearch(event.target.value);
   };
+
   return (
     <div>
       <form>
@@ -68,10 +69,3 @@ const App = () => {
 };
 
 export default App;
-
-// const getWeather = async (city) => {
-//   const apiKey = "5a91af5a0815e3cb0a7ea41aaa644028";
-//   const completeUrl = weatherUrl + apiKey + "&q=" + city + "&units=metric";
-//   const request = await axios.get(completeUrl);
-//   return await request.data;
-// };
